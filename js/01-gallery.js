@@ -3,8 +3,8 @@ import { galleryItems } from './gallery-items.js';
 
 const galleryContainer = document.querySelector('.gallery');
 const galleryMarkup = createGalleryMarkup(galleryItems);
-galleryContainer.insertAdjacentHTML('afterbegin', galleryMarkup);
 
+galleryContainer.insertAdjacentHTML('afterbegin', galleryMarkup);
 galleryContainer.addEventListener('click', onContainerGalleryClick);
 
 function createGalleryMarkup(gallery) {
@@ -34,6 +34,7 @@ function onContainerGalleryClick(event) {
 
   const instance = basicLightbox.create(`
     <img src="${event.target.dataset.source}" width="800" height="600">`);
-
   instance.show();
+
+  window.addEventListener('keydown', event => instance.close());
 }
