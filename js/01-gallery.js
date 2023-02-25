@@ -32,9 +32,23 @@ function onContainerGalleryClick(event) {
   }
   event.preventDefault();
 
-  const instance = basicLightbox.create(`
-    <img src="${event.target.dataset.source}" width="800" height="600">`);
+  const instance = basicLightbox.create(
+    `
+    <img src="${event.target.dataset.source}" width="800" height="600">`,
+    {
+      onShow: () => {
+        document.addEventListener('keydown', onEscPress);
+      },
+      onClose: () => {
+        document.removeEventListener('keydown', onEscPress);
+      },
+    },
+  );
   instance.show();
 
-  window.addEventListener('keydown', event => instance.close());
+  function onEscPress(event) {
+    if (event.code === 'Escape') {
+      instance.close();
+    }
+  }
 }
